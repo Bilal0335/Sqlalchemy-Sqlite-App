@@ -1,30 +1,25 @@
 # insert_data.py
 
 from sqlalchemy.orm import Session
-from models.user import Base,User,Address
+from models.customer import Base, Customer, Location
 from db import engine
 
 # Recreate tables
-Base.metadata.drop_all(engine)     # 🔴 Pehle se existing tables ko hata do (delete)
-Base.metadata.create_all(engine)  # ✅ Phir naye fresh tables dobara create karo
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
 
-
-# Insert data
+# Insert sample data
 with Session(engine) as session:
-    
-    u1 = User(name="Bilal", fullname="Bilal Hussain")
-    u1.addresses.append(Address(email_address="bilal@gmail.com"))
+    c1 = Customer(name="Bilal", fullname="Bilal Hussain")
+    c1.locations.append(Location(email_address="bilal@gmail.com"))
 
-    u2 = User(name="sandy", fullname="Sandy Cheeks")
-    u2.addresses.append(Address(email_address="sandy@sqlalchemy.org"))
+    c2 = Customer(name="sandy", fullname="Sandy Cheeks")
+    c2.locations.append(Location(email_address="sandy@sqlalchemy.org"))
 
-    u3 = User(name="patrick", fullname="Patrick Star")
-    u3.addresses.append(Address(email_address="patrick@rock.com"))
+    c3 = Customer(name="patrick", fullname="Patrick Star")
+    c3.locations.append(Location(email_address="patrick@rock.com"))
 
-
-    session.add_all([u1,u2,u3])
+    session.add_all([c1, c2, c3])
     session.commit()
 
-print("✅ Sample data inserted.")
-
-
+print("✅ Sample customer data inserted.")
